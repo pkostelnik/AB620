@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Interaktive Lernplattform fuer Microsoft AB-620 Copilot Studio." />
+    <title>AB-620 Field Guide</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2318201e'/%3E%3Ctext x='8' y='43' fill='%23d9f45b' font-family='Arial' font-size='25' font-weight='700'%3EAB%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="AB-620 Field Guide Startseite">
+          <span class="brand-mark">AB</span><span>620</span><small>FIELD GUIDE</small>
+        </a>
+        <nav class="top-nav" aria-label="Hauptnavigation">
+          <a href="#learn">Learn</a><a href="#exam">Exam mode</a><a href="#sources">Sources</a>
+        </nav>
+        <div class="header-actions">
+          <label class="theme-switcher"><span>Theme</span><select id="theme-select" aria-label="Choose color theme"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option><option value="contrast">High contrast</option></select></label>
+          <button class="ghost-button" id="reset-progress" type="button">Reset progress</button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow">Microsoft Certified: AI Agent Builder Associate</p>
+            <h1 id="hero-title">Design agents that<br /><em>actually ship.</em></h1>
+            <p class="hero-intro">A focused, source-led practice environment for AB-620. Learn the decision behind the answer, not just the letter.</p>
+            <div class="hero-actions"><a class="primary-button" href="#learn">Start learning <span>↗</span></a><span class="source-note">Updated for the 2026 study guide</span></div>
+          </div>
+          <div class="hero-stat" aria-label="Lernfortschritt">
+            <div class="ring"><strong id="progress-percent">0%</strong><span>mastery</span></div>
+            <p><b id="completed-count">0</b> of <b id="total-count">54</b> questions reviewed</p>
+          </div>
+        </section>
+
+        <section class="dashboard" id="learn" aria-labelledby="learn-title">
+          <div class="section-heading"><div><p class="eyebrow">Your study desk</p><h2 id="learn-title">Choose your angle.</h2></div><p class="section-caption">Build confidence in layers.<br />Start with the concepts that carry the most weight.</p></div>
+          <div class="mode-grid">
+            <button class="mode-card featured" data-mode="learn" type="button"><span class="mode-index">01 / 03</span><span class="mode-icon">↗</span><h3>Learn by topic</h3><p>Short explanations, source links, and all the reasoning behind each answer.</p><span class="mode-link">Open topic view</span></button>
+            <button class="mode-card" data-mode="exam" type="button"><span class="mode-index">02 / 03</span><span class="mode-icon">⌁</span><h3>Exam simulation</h3><p>Timed, clean, and intentionally uncomfortable. See your score at the end.</p><span class="mode-link">Start 20-question run</span></button>
+            <button class="mode-card" data-mode="review" type="button"><span class="mode-index">03 / 03</span><span class="mode-icon">◎</span><h3>Review weak spots</h3><p>Return to the questions you missed or have not answered yet.</p><span class="mode-link">Review now</span></button>
+          </div>
+        </section>
+
+        <section class="question-area" id="exam" aria-labelledby="question-title">
+          <div class="toolbar"><div><p class="eyebrow">Practice bank</p><h2 id="question-title">Question <span id="question-number">1</span><small>/ <span id="question-total">54</span></small></h2></div><div class="toolbar-controls"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter"><option value="all">All topics</option></select></div></div>
+          <div class="question-layout"><aside class="question-list" id="question-list" aria-label="Fragenliste"></aside><article class="question-card" id="question-card"></article></div>
+        </section>
+
+        <section class="sources-section" id="sources" aria-labelledby="sources-title"><div><p class="eyebrow">Evidence over folklore</p><h2 id="sources-title">Start with the<br /><em>source of truth.</em></h2></div><div class="source-grid"><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-620" target="_blank" rel="noreferrer"><b>01</b><strong>Official exam study guide</strong><span>Skills measured, weights, and scope ↗</span></a><a href="https://learn.microsoft.com/en-us/training/courses/ab-620t00" target="_blank" rel="noreferrer"><b>02</b><strong>AB-620T00 course</strong><span>72-hour instructor-led curriculum ↗</span></a><a href="https://www.dumpsbase.com/freedumps/ab-620-dumps-v8-02-for-designing-and-building-integrated-ai-solutions-in-copilot-studio-exam-preparation-2026.html" target="_blank" rel="noreferrer"><b>03</b><strong>Unofficial practice set</strong><span>45 questions, used critically ↗</span></a></div></section>
+      </main>
+      <footer><span>AB-620 FIELD GUIDE</span><span>Built for deliberate practice · GitHub Pages ready</span></footer>
+    </div>
+    <script src="questions.js"></script><script src="app.js"></script>
+  </body>
+</html>
