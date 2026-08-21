@@ -145,6 +145,7 @@ a { color: inherit; }
 .question-meta { display: flex; justify-content: space-between; color: var(--orange); font: 500 .65rem 'DM Mono'; letter-spacing: .1em; text-transform: uppercase; }
 .question-card h3 { max-width: 800px; margin: 28px 0; font: 600 clamp(1.35rem, 2.4vw, 2.1rem)/1.1 'Space Grotesk'; letter-spacing: -.05em; }
 .options { display: grid; max-width: 760px; gap: 8px; }
+.option input { accent-color: var(--focus); pointer-events: none; }
 .option { display: flex; gap: 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); padding: 15px; text-align: left; font-size: .86rem; line-height: 1.4; }
 .option:hover { border-color: var(--ink); }
 .option span { color: var(--orange); font: 500 .7rem 'DM Mono'; }
@@ -152,6 +153,10 @@ a { color: inherit; }
 .option.wrong { border-color: var(--orange); background: var(--error-bg); color: var(--error-text); }
 .explanation { margin-top: 25px; border-left: 3px solid var(--orange); background: var(--paper); padding: 20px; font-size: .85rem; line-height: 1.6; }
 .explanation strong { display: block; margin-bottom: 8px; font: 500 .65rem 'DM Mono'; letter-spacing: .1em; text-transform: uppercase; }
+.explanation small { color: var(--muted); }
+.matching-list { display: grid; max-width: 760px; gap: 10px; }
+.matching-list label { display: grid; grid-template-columns: 1fr 220px; gap: 14px; align-items: center; padding: 12px; border: 1px solid var(--line); background: var(--paper); font-size: .84rem; }
+.matching-list select { border: 1px solid var(--line); background: var(--white); color: var(--ink); padding: 9px; }
 .source-link { font-weight: 600; }
 .question-footer { display: flex; justify-content: space-between; margin-top: 28px; }
 .small-button { border: 1px solid var(--ink); background: transparent; color: var(--ink); padding: 10px 15px; font-size: .75rem; }
