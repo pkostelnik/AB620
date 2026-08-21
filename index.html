@@ -32,8 +32,10 @@
             <div class="hero-actions"><a class="primary-button" href="#learn">Start learning <span>↗</span></a><span class="source-note">Updated for the 2026 study guide</span></div>
           </div>
           <div class="hero-stat" aria-label="Lernfortschritt">
-            <div class="ring"><strong id="progress-percent">0%</strong><span>mastery</span></div>
-            <p><b id="completed-count">0</b> of <b id="total-count">54</b> questions reviewed</p>
+            <div class="ring" id="progress-ring" role="progressbar" aria-label="Fragenfortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <strong id="progress-percent">0%</strong><span>mastery</span>
+            </div>
+            <p><b id="completed-count">0</b> of <b id="total-count">78</b> questions reviewed</p>
           </div>
         </section>
 
@@ -47,7 +49,7 @@
         </section>
 
         <section class="question-area" id="exam" aria-labelledby="question-title">
-          <div class="toolbar"><div><p class="eyebrow">Practice bank</p><h2 id="question-title">Question <span id="question-number">1</span><small>/ <span id="question-total">54</span></small></h2></div><div class="toolbar-controls"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter"><option value="all">All topics</option></select></div></div>
+          <div class="toolbar"><div><p class="eyebrow">Practice bank</p><h2 id="question-title">Question <span id="question-number">1</span><small>/ <span id="question-total">54</span></small></h2><p class="exam-status" id="exam-status" hidden></p></div><div class="toolbar-controls"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter"><option value="all">All topics</option></select></div></div>
           <div class="question-layout"><aside class="question-list" id="question-list" aria-label="Fragenliste"></aside><article class="question-card" id="question-card"></article></div>
         </section>
 
