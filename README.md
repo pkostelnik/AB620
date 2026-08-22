@@ -2,6 +2,10 @@
 
 Static, interactive AB-620 practice site for GitHub Pages. The complete question bank is also available in `AB620.md`.
 
+![Microsoft Certified Associate badge](https://learn.microsoft.com/en-us/media/learn/certification/badges/microsoft-certified-associate-badge.svg)
+
+The page uses the official Microsoft Certified Associate badge as a visual reference only. This project is independent and is not affiliated with, sponsored by, or endorsed by Microsoft.
+
 The site now includes 90 practice questions, six learning outcomes, three exam areas, 20 paraphrased hands-on lab briefs, courseware insight cards, lab checklists, and links to the original external lab materials.
 
 The interface supports English and German. English is the default language, and the selected language is stored locally in the browser. The site also supports Auto, Light, Dark, and High contrast themes.

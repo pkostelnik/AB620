@@ -93,7 +93,7 @@ a { color: inherit; }
 .topbar { height: 84px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
 .brand { display: flex; gap: 7px; align-items: center; color: var(--ink); font: 700 1.2rem 'Space Grotesk'; text-decoration: none; letter-spacing: -.06em; }
 .brand small { margin-left: 10px; color: var(--muted); font: 500 .53rem 'DM Mono'; letter-spacing: .12em; }
-.brand-mark { padding: 7px 6px 5px; background: var(--ink); color: var(--acid); letter-spacing: -.1em; }
+.brand-badge { width: 42px; height: 42px; object-fit: contain; }
 .top-nav { display: flex; gap: 30px; }
 .top-nav a { color: var(--muted); font-size: .82rem; text-decoration: none; }
 .top-nav a:hover { color: var(--ink); }
@@ -219,6 +219,9 @@ footer { display: flex; justify-content: space-between; border-top: 1px solid va
 @media (max-width: 560px) {
   .app-shell { padding: 0 20px; }
   .topbar { height: 70px; }
+  .brand-badge { width: 34px; height: 34px; }
+  .brand small { display: none; }
+  .brand > span { font-size: 1rem; }
   .top-nav { display: none; }
   .header-actions { gap: 6px; }
   .theme-switcher span, .ghost-button { font-size: .62rem; }
