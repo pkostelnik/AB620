@@ -6,6 +6,7 @@ const state = {
   query: '',
   topic: 'all',
   areaId: 'all',
+  language: ['en', 'de'].includes(localStorage.getItem('ab620-language')) ? localStorage.getItem('ab620-language') : 'en',
   examIds: [],
   examStarted: false,
   examEndsAt: 0,
@@ -13,6 +14,10 @@ const state = {
 };
 
 const themeSelect = $('#theme-select');
+const languageSelect = $('#language-select');
+languageSelect.value = state.language;
+function applyLanguage(language) { state.language = language; localStorage.setItem('ab620-language', language); languageSelect.value = language; document.documentElement.lang = language; document.querySelectorAll('[data-ui]').forEach((element) => { const key = element.dataset.ui; if (uiText[language][key]) element.textContent = uiText[language][key]; }); refreshDynamicCopy(); render(); renderLabs(); }
+languageSelect.addEventListener('change', (event) => applyLanguage(event.target.value));
 function applyTheme(theme) { document.documentElement.dataset.theme = theme; themeSelect.value = theme; }
 applyTheme(localStorage.getItem('ab620-theme') || 'auto');
 themeSelect.addEventListener('change', (event) => { localStorage.setItem('ab620-theme', event.target.value); applyTheme(event.target.value); });
@@ -54,17 +59,18 @@ openLegalModal('disclaimer');
 labFilter.addEventListener('change', renderLabs);
 const topics = [...new Set(questions.map((item) => item.topic))];
 topics.forEach((topic) => $('#topic-filter').insertAdjacentHTML('beforeend', `<option value="${topic}">${topic}</option>`));
-courseAreas.forEach((area) => areaGrid.insertAdjacentHTML('beforeend', `<article class="area-card"><span class="area-weight">${area.weight}</span><h3>${area.title}</h3><p>${area.labs.length} connected labs</p><button class="text-button" data-area="${area.id}" type="button">Study this area ↗</button></article>`));
-learningOutcomes.forEach((outcome, index) => outcomesStrip.insertAdjacentHTML('beforeend', `<div><b>0${index + 1}</b><span>${outcome}</span></div>`));
+courseAreas.forEach((area) => areaGrid.insertAdjacentHTML('beforeend', `<article class="area-card"><span class="area-weight">${area.weight}</span><h3>${t(area.title)}</h3><p>${area.labs.length} connected labs</p><button class="text-button" data-area="${area.id}" type="button">Study this area ↗</button></article>`));
+learningOutcomes.forEach((outcome, index) => outcomesStrip.insertAdjacentHTML('beforeend', `<div><b>0${index + 1}</b><span>${t(outcome)}</span></div>`));
 for (let day = 1; day <= 5; day += 1) labFilter.insertAdjacentHTML('beforeend', `<option value="${day}">Day ${day}</option>`);
-coursewareInsights.forEach((insight) => insightsGrid.insertAdjacentHTML('beforeend', `<article class="insight-card"><span class="insight-status">${insight.status}</span><h4>${insight.title}</h4><p>${insight.text}</p><button class="text-button insight-open" data-insight="${insight.id}" type="button">Read insight ↗</button></article>`));
+coursewareInsights.forEach((insight) => insightsGrid.insertAdjacentHTML('beforeend', `<article class="insight-card"><span class="insight-status">${insight.status}</span><h4>${t(insight.title)}</h4><p>${t(insight.text)}</p><button class="text-button insight-open" data-insight="${insight.id}" type="button">${ui('readInsight')} ↗</button></article>`));
+function refreshDynamicCopy() { document.querySelectorAll('.area-card h3').forEach((element, index) => { element.textContent = t(courseAreas[index].title); }); document.querySelectorAll('.outcomes-strip span').forEach((element, index) => { element.textContent = t(learningOutcomes[index]); }); document.querySelectorAll('.insight-card h4').forEach((element, index) => { element.textContent = t(coursewareInsights[index].title); }); document.querySelectorAll('.insight-card p').forEach((element, index) => { element.textContent = t(coursewareInsights[index].text); }); document.querySelectorAll('.insight-open').forEach((element) => { element.textContent = `${ui('readInsight')} ↗`; }); }
 document.querySelectorAll('[data-area]').forEach((button) => button.addEventListener('click', () => { state.areaId = button.dataset.area; state.mode = 'learn'; state.topic = 'all'; state.query = ''; $('#topic-filter').value = 'all'; $('#search').value = ''; document.querySelector('#exam').scrollIntoView({ behavior: 'smooth' }); render(); }));
 document.querySelectorAll('.insight-open').forEach((button) => button.addEventListener('click', () => openInsight(button.dataset.insight)));
 
 function save() { localStorage.setItem('ab620-answers', JSON.stringify(state.answers)); }
 function saveLabs() { localStorage.setItem('ab620-lab-progress', JSON.stringify(labProgress)); }
-function renderLabs() { const visible = labs.filter((lab) => labFilter.value === 'all' || String(lab.day) === labFilter.value); labsGrid.innerHTML = visible.map((lab) => `<article class="lab-card"><div class="lab-top"><span>LAB ${String(lab.number).padStart(2, '0')} · DAY ${lab.day}</span><span>${labProgress[lab.id] || 0}%</span></div><h3>${lab.title}</h3><p>${lab.summary}</p><div class="lab-tags">${lab.concepts.slice(0, 3).map((concept) => `<span>${concept}</span>`).join('')}</div><button class="text-button lab-open" data-lab="${lab.id}" type="button">Open lab brief ↗</button></article>`).join(''); labsGrid.querySelectorAll('.lab-open').forEach((button) => button.addEventListener('click', () => openLab(button.dataset.lab))); }
-function openLab(id) { const lab = labs.find((item) => item.id === id); lastFocusedElement = document.activeElement; modalTitle.textContent = `Lab ${String(lab.number).padStart(2, '0')} · ${lab.title}`; modalContent.innerHTML = `<p>${lab.summary}</p><h4>Checklist</h4><div class="lab-checklist">${lab.checklist.map((step, index) => `<label><input type="checkbox" data-lab-step="${index}" ${labProgress[`${lab.id}-${index}`] ? 'checked' : ''} />${step}</label>`).join('')}</div><h4>Artifacts</h4><p>${lab.artifacts.join(' · ')}</p><p class="verification-note">${lab.verificationStatus}</p><a class="source-link" href="${lab.sourceUrl}" target="_blank" rel="noreferrer">Open original lab ↗</a>`; legalModal.hidden = false; document.body.classList.add('modal-open'); modalPanel.focus(); modalContent.querySelectorAll('[data-lab-step]').forEach((input) => input.addEventListener('change', () => { labProgress[`${lab.id}-${input.dataset.labStep}`] = input.checked; labProgress[lab.id] = Math.round(Object.keys(labProgress).filter((key) => key.startsWith(`${lab.id}-`) && labProgress[key]).length / lab.checklist.length * 100); saveLabs(); renderLabs(); })); }
+function renderLabs() { const visible = labs.filter((lab) => labFilter.value === 'all' || String(lab.day) === labFilter.value); labsGrid.innerHTML = visible.map((lab) => `<article class="lab-card"><div class="lab-top"><span>LAB ${String(lab.number).padStart(2, '0')} · DAY ${lab.day}</span><span>${labProgress[lab.id] || 0}%</span></div><h3>${t(lab.title)}</h3><p>${t(lab.summary)}</p><div class="lab-tags">${lab.concepts.slice(0, 3).map((concept) => `<span>${t(concept)}</span>`).join('')}</div><button class="text-button lab-open" data-lab="${lab.id}" type="button">${ui('openLab')} ↗</button></article>`).join(''); labsGrid.querySelectorAll('.lab-open').forEach((button) => button.addEventListener('click', () => openLab(button.dataset.lab))); }
+function openLab(id) { const lab = labs.find((item) => item.id === id); lastFocusedElement = document.activeElement; modalTitle.textContent = `Lab ${String(lab.number).padStart(2, '0')} · ${t(lab.title)}`; modalContent.innerHTML = `<p>${t(lab.summary)}</p><h4>${ui('checklist')}</h4><div class="lab-checklist">${lab.checklist.map((step, index) => `<label><input type="checkbox" data-lab-step="${index}" ${labProgress[`${lab.id}-${index}`] ? 'checked' : ''} />${t(step)}</label>`).join('')}</div><h4>${ui('artifacts')}</h4><p>${lab.artifacts.map((artifact) => t(artifact)).join(' · ')}</p><p class="verification-note">${t(lab.verificationStatus)}</p><a class="source-link" href="${lab.sourceUrl}" target="_blank" rel="noreferrer">${ui('originalLab')} ↗</a>`; legalModal.hidden = false; document.body.classList.add('modal-open'); modalPanel.focus(); modalContent.querySelectorAll('[data-lab-step]').forEach((input) => input.addEventListener('change', () => { labProgress[`${lab.id}-${input.dataset.labStep}`] = input.checked; labProgress[lab.id] = Math.round(Object.keys(labProgress).filter((key) => key.startsWith(`${lab.id}-`) && labProgress[key]).length / lab.checklist.length * 100); saveLabs(); renderLabs(); })); }
 function openInsight(id) { const insight = coursewareInsights.find((item) => item.id === id); lastFocusedElement = document.activeElement; modalTitle.textContent = insight.title; modalContent.innerHTML = `<p>${insight.text}</p><p><strong>Status:</strong> ${insight.status}</p><a class="source-link" href="${insight.source}" target="_blank" rel="noreferrer">Read Microsoft Learn source ↗</a>`; legalModal.hidden = false; document.body.classList.add('modal-open'); modalPanel.focus(); }
 function currentQuestions() { return (state.mode === 'exam' || state.mode === 'review') && state.examIds.length ? state.examIds.map((id) => questions.find((item) => item.id === id)) : questions; }
 function filtered() {
@@ -109,7 +115,7 @@ function renderCard() {
   if (!item) return;
   const answered = state.answers[item.id];
   const matching = item.format === 'matching' ? `<div class="matching-list">${item.options.map((option, index) => `<label>${option}<select data-match="${index}"><option value="">Choose</option>${item.matchLabels.map((label) => `<option value="${label[0]}">${label}</option>`).join('')}</select></label>`).join('')}</div>` : '';
-  card.innerHTML = `<div class="question-meta"><span>${item.topic}</span><span>${item.sourceType}</span></div><h3>${item.question}</h3>${matching || `<div class="options">${optionMarkup(item, answered)}</div>`}<div class="source-row"><strong>Source:</strong> ${item.sourceType}${item.coursewareSource ? ` · <a class="source-link" href="${item.coursewareSource}" target="_blank" rel="noreferrer">Original Courseware ↗</a>` : ''}</div>${answered !== undefined ? `<div class="explanation"><strong>${isCorrect(item, answered) ? 'Correct answer' : `Correct answer: ${answerText(item)}`}</strong>${item.explanation}<br /><br /><a class="source-link" href="${item.source}" target="_blank" rel="noreferrer">Read the verification source ↗</a><br /><small>${item.verification}</small></div>` : ''}${renderTopicLinks(item)}<div class="question-footer"><button class="small-button" id="previous" type="button">← Previous</button><button class="small-button next" id="next" type="button">${state.index === items.length - 1 ? (state.mode === 'exam' ? 'Finish exam' : 'Finish') : 'Next question →'}</button></div>`;
+  card.innerHTML = `<div class="question-meta"><span>${t(item.topic)}</span><span>${t(item.sourceType)}</span></div><h3>${t(item.question)}</h3>${matching || `<div class="options">${optionMarkup(item, answered)}</div>`}<div class="source-row"><strong>${ui('source')}:</strong> ${t(item.sourceType)}${item.coursewareSource ? ` · <a class="source-link" href="${item.coursewareSource}" target="_blank" rel="noreferrer">${ui('originalCourseware')} ↗</a>` : ''}</div>${answered !== undefined ? `<div class="explanation"><strong>${isCorrect(item, answered) ? ui('correct') : `Correct answer: ${answerText(item)}`}</strong>${t(item.explanation)}<br /><br /><a class="source-link" href="${item.source}" target="_blank" rel="noreferrer">${ui('verificationSource')} ↗</a><br /><small>${t(item.verification)}</small></div>` : ''}${renderTopicLinks(item)}<div class="question-footer"><button class="small-button" id="previous" type="button">← ${ui('previous')}</button><button class="small-button next" id="next" type="button">${state.index === items.length - 1 ? ui('finish') : `${ui('next')} →`}</button></div>`;
   card.querySelectorAll('.option').forEach((option) => {
     const choose = () => {
       const value = Number(option.dataset.option);
@@ -132,14 +138,14 @@ function renderExamStatus() {
   if (!state.examStarted) { status.hidden = false; status.textContent = state.examResult; return; }
   status.hidden = false;
   const remaining = Math.max(0, state.examEndsAt - Date.now());
-  status.textContent = `Exam mode · ${Math.ceil(remaining / 60000)} min left`;
+  status.textContent = `Exam mode · ${Math.ceil(remaining / 60000)} ${ui('minutes')}`;
   if (remaining <= 0) finishExam();
 }
 function finishExam() {
   const examItems = state.examIds.map((id) => questions.find((item) => item.id === id));
   const score = examItems.filter((item) => isCorrect(item, state.answers[item.id])).length;
   state.examStarted = false;
-  state.examResult = `Exam complete · ${score}/${examItems.length} correct (${Math.round(score / examItems.length * 100)}%)`;
+  state.examResult = `${ui('complete')} · ${score}/${examItems.length} ${ui('correct')} (${Math.round(score / examItems.length * 100)}%)`;
   $('#exam-status').hidden = false;
   $('#exam-status').textContent = state.examResult;
   state.index = 0;
@@ -164,5 +170,4 @@ $('#search').addEventListener('input', (event) => { state.query = event.target.v
 $('#topic-filter').addEventListener('change', (event) => { state.topic = event.target.value; state.areaId = 'all'; state.mode = 'learn'; state.index = 0; render(); });
 $('#reset-progress').addEventListener('click', () => { if (confirm('Reset all local progress?')) { state.answers = {}; save(); render(); } });
 setInterval(renderExamStatus, 1000);
-render();
-renderLabs();
+applyLanguage(state.language);

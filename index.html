@@ -15,11 +15,12 @@
           <span class="brand-mark">AB</span><span>620</span><small>FIELD GUIDE</small>
         </a>
         <nav class="top-nav" aria-label="Hauptnavigation">
-          <a href="#learn">Learn</a><a href="#exam">Exam mode</a><a href="#sources">Sources</a>
+          <a href="#learn" data-ui="learn">Learn</a><a href="#exam" data-ui="exam">Exam mode</a><a href="#sources" data-ui="sources">Sources</a>
         </nav>
         <div class="header-actions">
-          <label class="theme-switcher"><span>Theme</span><select id="theme-select" aria-label="Choose color theme"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option><option value="contrast">High contrast</option></select></label>
-          <button class="ghost-button" id="reset-progress" type="button">Reset progress</button>
+          <label class="theme-switcher"><span data-ui="theme">Theme</span><select id="theme-select" aria-label="Choose color theme"><option value="auto" data-ui="auto">Auto</option><option value="light" data-ui="light">Light</option><option value="dark" data-ui="dark">Dark</option><option value="contrast" data-ui="contrast">High contrast</option></select></label>
+          <label class="language-switcher"><span>Language</span><select id="language-select" aria-label="Choose language"><option value="en">English</option><option value="de">Deutsch</option></select></label>
+          <button class="ghost-button" id="reset-progress" type="button" data-ui="reset">Reset progress</button>
         </div>
       </header>
 
@@ -28,41 +29,41 @@
           <div class="hero-copy">
             <p class="eyebrow">Microsoft Certified: AI Agent Builder Associate</p>
             <h1 id="hero-title">Design agents that<br /><em>actually ship.</em></h1>
-            <p class="hero-intro">A focused, source-led practice environment for AB-620. Learn the decision behind the answer, not just the letter.</p>
-            <div class="hero-actions"><a class="primary-button" href="#learn">Start learning <span>↗</span></a><span class="source-note">Updated for the 2026 study guide</span></div>
+            <p class="hero-intro" data-ui="heroIntro">A focused, source-led practice environment for AB-620. Learn the decision behind the answer, not just the letter.</p>
+            <div class="hero-actions"><a class="primary-button" href="#learn" data-ui="start">Start learning <span>↗</span></a><span class="source-note" data-ui="updated">Updated for the 2026 study guide</span></div>
           </div>
           <div class="hero-stat" aria-label="Lernfortschritt">
             <div class="ring" id="progress-ring" role="progressbar" aria-label="Fragenfortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
               <strong id="progress-percent">0%</strong><span>mastery</span>
             </div>
-            <p><b id="completed-count">0</b> of <b id="total-count">78</b> questions reviewed</p>
+            <p><b id="completed-count">0</b> of <b id="total-count">90</b> <span data-ui="reviewed">questions reviewed</span></p>
           </div>
         </section>
 
         <section class="dashboard" id="learn" aria-labelledby="learn-title">
-          <div class="section-heading"><div><p class="eyebrow">Your study desk</p><h2 id="learn-title">Choose your angle.</h2></div><p class="section-caption">Build confidence in layers.<br />Start with the concepts that carry the most weight.</p></div>
+          <div class="section-heading"><div><p class="eyebrow" data-ui="studyDesk">Your study desk</p><h2 id="learn-title" data-ui="choose">Choose your angle.</h2></div><p class="section-caption"><span data-ui="confidence">Build confidence in layers.</span><br /><span data-ui="carry">Start with the concepts that carry the most weight.</span></p></div>
           <div class="mode-grid">
-            <button class="mode-card featured" data-mode="learn" type="button"><span class="mode-index">01 / 03</span><span class="mode-icon">↗</span><h3>Learn by topic</h3><p>Short explanations, source links, and all the reasoning behind each answer.</p><span class="mode-link">Open topic view</span></button>
-            <button class="mode-card" data-mode="exam" type="button"><span class="mode-index">02 / 03</span><span class="mode-icon">⌁</span><h3>Exam simulation</h3><p>Timed, clean, and intentionally uncomfortable. See your score at the end.</p><span class="mode-link">Start 20-question run</span></button>
-            <button class="mode-card" data-mode="review" type="button"><span class="mode-index">03 / 03</span><span class="mode-icon">◎</span><h3>Review weak spots</h3><p>Return to the questions you missed or have not answered yet.</p><span class="mode-link">Review now</span></button>
+            <button class="mode-card featured" data-mode="learn" type="button"><span class="mode-index">01 / 03</span><span class="mode-icon">↗</span><h3 data-ui="learnTopic">Learn by topic</h3><p data-ui="learnTopicDesc">Short explanations, source links, and all the reasoning behind each answer.</p><span class="mode-link" data-ui="openTopic">Open topic view</span></button>
+            <button class="mode-card" data-mode="exam" type="button"><span class="mode-index">02 / 03</span><span class="mode-icon">⌁</span><h3 data-ui="examSim">Exam simulation</h3><p data-ui="examDesc">Timed, clean, and intentionally uncomfortable. See your score at the end.</p><span class="mode-link" data-ui="startRun">Start 20-question run</span></button>
+            <button class="mode-card" data-mode="review" type="button"><span class="mode-index">03 / 03</span><span class="mode-icon">◎</span><h3 data-ui="review">Review weak spots</h3><p data-ui="reviewDesc">Return to the questions you missed or have not answered yet.</p><span class="mode-link" data-ui="reviewNow">Review now</span></button>
           </div>
         </section>
 
         <section class="course-path" id="course-path" aria-labelledby="course-title">
-          <div class="section-heading"><div><p class="eyebrow">Course path</p><h2 id="course-title">Learn the system,<br /><em>then run it.</em></h2></div><p class="section-caption">20 practical labs, one connected<br />Contoso service-operations scenario.</p></div>
+          <div class="section-heading"><div><p class="eyebrow" data-ui="coursePath">Course path</p><h2 id="course-title" data-ui="buildPath">Build the path.</h2></div><p class="section-caption">20 practical labs, one connected<br />Contoso service-operations scenario.</p></div>
           <div class="outcomes-strip" id="outcomes-strip"></div>
           <div class="area-grid" id="area-grid"></div>
-          <div class="insights-heading"><p class="eyebrow">Courseware insights</p><h3>Concepts worth carrying into production.</h3></div>
+          <div class="insights-heading"><p class="eyebrow" data-ui="courseware">Courseware insights</p><h3>Concepts worth carrying into production.</h3></div>
           <div class="insights-grid" id="insights-grid"></div>
         </section>
 
         <section class="labs-section" id="labs" aria-labelledby="labs-title">
-          <div class="toolbar"><div><p class="eyebrow">Hands-on labs</p><h2 id="labs-title">Build the path.</h2></div><select id="lab-filter" aria-label="Filter labs by day"><option value="all">All five days</option></select></div>
+          <div class="toolbar"><div><p class="eyebrow" data-ui="labs">Hands-on labs</p><h2 id="labs-title" data-ui="buildPath">Build the path.</h2></div><select id="lab-filter" aria-label="Filter labs by day"><option value="all" data-ui="allDays">All five days</option></select></div>
           <div class="labs-grid" id="labs-grid"></div>
         </section>
 
         <section class="question-area" id="exam" aria-labelledby="question-title">
-          <div class="toolbar"><div><p class="eyebrow">Practice bank</p><h2 id="question-title">Question <span id="question-number">1</span><small>/ <span id="question-total">90</span></small></h2><p class="exam-status" id="exam-status" hidden></p></div><div class="toolbar-controls"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter"><option value="all">All topics</option></select></div></div>
+          <div class="toolbar"><div><p class="eyebrow">Practice bank</p><h2 id="question-title"><span data-ui="question">Question</span> <span id="question-number">1</span><small>/ <span id="question-total">90</span></small></h2><p class="exam-status" id="exam-status" hidden></p></div><div class="toolbar-controls"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter"><option value="all">All topics</option></select></div></div>
           <div class="question-layout"><aside class="question-list" id="question-list" aria-label="Fragenliste"></aside><article class="question-card" id="question-card"></article></div>
         </section>
 
@@ -80,6 +81,6 @@
         <div class="modal-actions"><button class="small-button next" type="button" data-modal-close>Close</button></div>
       </section>
     </div>
-    <script src="course.js?v=1"></script><script src="resources.js?v=1"></script><script src="courseware-insights.js?v=1"></script><script src="labs.js?v=2"></script><script src="questions.js?v=6"></script><script src="app.js?v=8"></script>
+    <script src="course.js?v=1"></script><script src="resources.js?v=1"></script><script src="courseware-insights.js?v=1"></script><script src="labs.js?v=2"></script><script src="questions.js?v=6"></script><script src="i18n.js?v=4"></script><script src="app.js?v=12"></script>
   </body>
 </html>
