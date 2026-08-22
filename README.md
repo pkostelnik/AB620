@@ -4,6 +4,8 @@ Static, interactive AB-620 practice site for GitHub Pages. The complete question
 
 The site now includes 90 practice questions, six learning outcomes, three exam areas, 20 paraphrased hands-on lab briefs, courseware insight cards, lab checklists, and links to the original external lab materials.
 
+The interface supports English and German. English is the default language, and the selected language is stored locally in the browser. The site also supports Auto, Light, Dark, and High contrast themes.
+
 Courseware-derived content is attributed to the [Tertiary Courses C1760 repository](https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate). The local lab briefs are paraphrased summaries, not copied courseware.
 
 Content integrity can be checked with `node scripts/validate-content.mjs`.
@@ -26,4 +28,11 @@ Open `http://localhost:8000` in a browser. No build step or backend is required.
 4. Select the default branch and the `/ (root)` folder.
 5. Save and open the generated Pages URL.
 
-The app stores progress and the selected theme in the visitor's browser via `localStorage`; no personal data is sent to a server. The default `Auto` theme follows the operating system's light/dark preference.
+The app stores progress, lab checklist state, language, and theme in the visitor's browser via `localStorage`; no personal data is sent to a server. The default `Auto` theme follows the operating system's light/dark preference.
+
+Local storage keys:
+
+- `ab620-answers`
+- `ab620-lab-progress`
+- `ab620-language`
+- `ab620-theme`
