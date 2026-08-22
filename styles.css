@@ -2,22 +2,22 @@
 
 :root {
   color-scheme: light;
-  --ink: #17233b;
-  --muted: #59657a;
-  --paper: #f7f4ed;
-  --line: #d9ddd8;
-  --acid: #c9f36b;
-  --orange: #b84232;
-  --white: #fffdf8;
-  --focus: #3767ff;
-  --accent-ink: #17233b;
-  --accent-muted: #344765;
-  --button-bg: #17233b;
-  --button-text: #c9f36b;
-  --success-bg: #e8f8c0;
-  --success-text: #17233b;
-  --error-bg: #ffe4da;
-  --error-text: #17233b;
+  --ink: #172b4d;
+  --muted: #52637a;
+  --paper: #f8fafc;
+  --line: #d8e0ea;
+  --acid: #0e7490;
+  --orange: #a15c00;
+  --white: #ffffff;
+  --focus: #0969da;
+  --accent-ink: #ffffff;
+  --accent-muted: #e0f2fe;
+  --button-bg: #0969da;
+  --button-text: #ffffff;
+  --success-bg: #e4f4ec;
+  --success-text: #185c40;
+  --error-bg: #fcebea;
+  --error-text: #8f2017;
   --serif: Georgia, 'Times New Roman', serif;
 }
 
@@ -28,18 +28,18 @@
   --muted: #aab5c5;
   --paper: #111827;
   --line: #344155;
-  --acid: #b9ed62;
-  --orange: #ff9179;
-  --white: #1b2535;
+  --acid: #67e8f9;
+  --orange: #fdbb74;
+  --white: #172554;
   --focus: #91b4ff;
   --accent-ink: #17233b;
   --accent-muted: #344765;
-  --button-bg: #b9ed62;
-  --button-text: #17233b;
-  --success-bg: #b9ed62;
-  --success-text: #17233b;
-  --error-bg: #5b211b;
-  --error-text: #fff;
+  --button-bg: #2563eb;
+  --button-text: #ffffff;
+  --success-bg: #123b30;
+  --success-text: #6ee7b7;
+  --error-bg: #4a1714;
+  --error-text: #fda4af;
 }
 :root[data-theme='contrast'] {
   color-scheme: dark;
@@ -47,13 +47,13 @@
   --muted: #fff;
   --paper: #000;
   --line: #fff;
-  --acid: #ff0;
-  --orange: #0ff;
+  --acid: #0ff;
+  --orange: #ff0;
   --white: #000;
   --focus: #ff0;
   --accent-ink: #000;
   --accent-muted: #000;
-  --button-bg: #fff;
+  --button-bg: #0ff;
   --button-text: #000;
   --success-bg: #ff0;
   --success-text: #000;
@@ -67,18 +67,18 @@
     --muted: #aab5c5;
     --paper: #111827;
     --line: #344155;
-    --acid: #b9ed62;
-    --orange: #ff9179;
-    --white: #1b2535;
+    --acid: #67e8f9;
+    --orange: #fdbb74;
+    --white: #172554;
     --focus: #91b4ff;
     --accent-ink: #17233b;
     --accent-muted: #344765;
-    --button-bg: #b9ed62;
-    --button-text: #17233b;
-    --success-bg: #b9ed62;
-    --success-text: #17233b;
-    --error-bg: #5b211b;
-    --error-text: #fff;
+    --button-bg: #2563eb;
+    --button-text: #ffffff;
+    --success-bg: #123b30;
+    --success-text: #6ee7b7;
+    --error-bg: #4a1714;
+    --error-text: #fda4af;
   }
 }
 
