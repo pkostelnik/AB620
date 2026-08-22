@@ -97,4 +97,64 @@ community('Which ALM component separates a solution from the actual environment 
 community('Which audience usually favors Teams, Entra ID authentication, and enterprise permissions?', ['An internal employee audience.', 'An anonymous public website audience.', 'A public marketing audience.', 'A search crawler.'], 0, 'Audience planning influences channel, identity, knowledge, governance, and scale. Internal employee agents commonly use Teams and organizational identity.', 'Audience design', 9623),
 community('Which answer is the best example of a read-only enterprise integration?', ['Retrieve the current order status.', 'Approve a purchase order.', 'Delete a customer record.', 'Submit a payment.'], 0, 'Read-only integration retrieves information without changing the external system. Action and hybrid integrations require stronger controls.', 'Enterprise integration', 9592)
 ];
-const questions = [...dumpsbase, ...additional, ...communityQuestions].map((item, index) => ({ ...item, id: index + 1, official: item.official || false, format: item.format || 'single', sourceType: item.sourceType || (item.official ? 'Microsoft Learn' : 'DumpsBase practice'), verification: item.verification || (item.official ? 'Official Microsoft Learn aligned' : 'Unofficial practice; verify against Microsoft Learn') }));
+const coursewareQuestions = [
+community('A flow is called by an agent and must return a result the agent can use in the same turn. Which response behavior is required?', ['Asynchronous response enabled.', 'Synchronous response through Respond to the agent.', 'No response action.', 'A scheduled trigger.'], 1, 'Microsoft documents that flows used by an agent should return values synchronously. Background execution can produce an unexpected error.', 'Agent flow contracts', 9628, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; confirmed against Microsoft Learn flow guidance', labIds: ['lab-04', 'lab-05'] }),
+community('Which TWO properties belong in a reliable flow contract?', ['Typed input and output definitions.', 'Undocumented side effects.', 'Explicit error states.', 'A hard-coded production endpoint.'], [0, 2], 'A clear contract makes inputs, outputs, and failure behavior observable and reusable. Environment-specific values belong in configuration.', 'Agent flow contracts', 9648, 'multiple', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; partially confirmed against Microsoft Learn', labIds: ['lab-04', 'lab-06'] }),
+community('A retrieval test returns relevant documents but they are several months old. Which dimension should be investigated first?', ['Source freshness and index synchronization.', 'The greeting topic.', 'The Adaptive Card border.', 'The number of trigger phrases.'], 0, 'Retrieval quality depends on current indexed content. A relevant result is not sufficient if the source is stale.', 'Retrieval evidence', 9701, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; verify current connector/index behavior', labIds: ['lab-07', 'lab-08'] }),
+community('Which evidence state should a grounded agent return when sources disagree materially?', ['complete', 'insufficientEvidence', 'conflict', 'success'], 2, 'A conflict state is safer than silently choosing one contradictory source. The flow or prompt should expose the ambiguity for handling.', 'Retrieval evidence', 9815, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; partially confirmed', labIds: ['lab-08', 'lab-13'] }),
+community('Why should a parent and connected agent share correlation identifiers?', ['To make the child agent anonymous.', 'To correlate delegated work across traces and troubleshoot the complete request.', 'To bypass authentication.', 'To replace the agent description.'], 1, 'Correlation IDs connect parent and delegated activity so operators can follow one request across separate agent traces.', 'Observability', 9825, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; verify telemetry fields in the target environment', labIds: ['lab-12', 'lab-14'] }),
+community('Which TWO risks must be reviewed before connecting an external A2A agent?', ['Data sharing and permission boundaries.', 'Whether the agent has a decorative logo.', 'Timeout and reliability behavior.', 'Whether all internal secrets are forwarded.'], [0, 2], 'External agent connections introduce a trust boundary. Review data handling, permissions, observability, reliability, and human oversight.', 'A2A trust boundaries', 9810, 'multiple', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; confirmed against Microsoft Learn A2A guidance', labIds: ['lab-11', 'lab-12'] }),
+community('A read-only MCP server exposes tools and resources. What should a maker do before enabling it for an agent?', ['Enable every discovered operation.', 'Review authentication, tool scope, data access, and DLP policy.', 'Replace it with a greeting topic.', 'Store its credentials in a global variable.'], 1, 'MCP discovery does not remove governance. Review the server, authentication, available operations, and data policy before use.', 'MCP governance', 9757, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; confirmed against Microsoft Learn MCP guidance', labIds: ['lab-10'] }),
+community('A Computer Use task may delete records if the UI state is misread. Which control is most appropriate?', ['Run it in an isolated environment with explicit stop and confirmation rules.', 'Grant it global administrator permissions.', 'Remove all human review.', 'Use public internet knowledge.'], 0, 'Computer Use is probabilistic and can perform unintended actions. Isolation, least privilege, allow lists, and human confirmation reduce risk.', 'Computer Use safety', 9748, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; confirmed against Microsoft Learn Computer Use guidance', labIds: ['lab-10'] }),
+community('Which test-set category is designed to check whether an agent refuses or safely handles out-of-scope requests?', ['core', 'robustness', 'architecture', 'boundary'], 3, 'Boundary cases test scope limits, abstention, permission boundaries, and unsafe or unsupported requests.', 'Evaluation design', 9830, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; category names are instructional, not official metric names', labIds: ['lab-15', 'lab-16'] }),
+community('An evaluation shows a regression after a prompt change. What should happen before release?', ['Ship immediately because one metric improved.', 'Compare before and after evidence and run the affected regression cases.', 'Delete the baseline.', 'Disable monitoring.'], 1, 'A quality improvement is not safe if it breaks core behavior. Compare evidence and rerun representative regression cases.', 'Evaluation triage', 9840, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; confirmed as a testing practice', labIds: ['lab-15', 'lab-16'] }),
+community('Which deployment artifact should carry environment-specific endpoints without changing the agent canvas?', ['A hard-coded URL.', 'An Environment Variable.', 'A conversation transcript.', 'A trigger phrase.'], 1, 'Environment Variables separate configuration from solution logic and support movement between environments.', 'Release gates', 9863, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; confirmed against Microsoft Learn ALM guidance', labIds: ['lab-17', 'lab-18', 'lab-19'] }),
+community('A production release has a failing smoke check and a downstream API has already received a write. What is the safest next step?', ['Continue the release and hide the failure.', 'Hold or contain the release, record the incident, and follow the recovery runbook.', 'Delete all telemetry.', 'Retry indefinitely.'], 1, 'A release gate should stop promotion when evidence fails. External side effects may require compensation rather than a simple package rollback.', 'Release recovery', 9845, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; operational guidance requires scenario-specific validation', labIds: ['lab-19', 'lab-20'] })
+];
+const coursewareLabSources = {
+  'lab-04': 'lab-04-build-a-request-intake-flow-with-human-review.md',
+  'lab-05': 'lab-05-create-a-guided-topic-with-variables-and-grounded-answers.md',
+  'lab-06': 'lab-06-add-an-adaptive-card-and-safe-http-response.md',
+  'lab-07': 'lab-07-ground-the-agent-in-enterprise-knowledge.md',
+  'lab-08': 'lab-08-configure-azure-ai-search-and-validate-retrieval.md',
+  'lab-10': 'lab-10-connect-mcp-tools-and-guard-computer-use.md',
+  'lab-11': 'lab-11-connect-copilot-studio-foundry-and-fabric-specialists.md',
+  'lab-12': 'lab-12-delegate-a-task-over-a2a.md',
+  'lab-13': 'lab-13-use-azure-search-evidence-in-a-foundry-prompt.md',
+  'lab-14': 'lab-14-instrument-the-agent-with-application-insights.md',
+  'lab-15': 'lab-15-build-a-representative-agent-test-set.md',
+  'lab-16': 'lab-16-run-evaluation-and-triage-agent-defects.md',
+  'lab-17': 'lab-17-create-the-agent-solution-and-dependency-inventory.md',
+  'lab-18': 'lab-18-configure-environment-variables-and-connection-references.md',
+  'lab-19': 'lab-19-deploy-through-a-power-platform-pipeline.md',
+  'lab-20': 'lab-20-rehearse-release-monitoring-and-recovery.md'
+};
+coursewareQuestions.forEach((question) => { const labId = question.labIds[0]; question.coursewareSource = `https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/blob/main/labs/${coursewareLabSources[labId]}`; });
+const topicLabMap = {
+  'Authentication & SSO': ['lab-02'],
+  'Agent flows': ['lab-04'],
+  'ALM & deployment': ['lab-17', 'lab-18', 'lab-19'],
+  'Tools & integrations': ['lab-09', 'lab-10', 'lab-11'],
+  'Grounding & knowledge': ['lab-05', 'lab-07', 'lab-08'],
+  'Computer use': ['lab-10'],
+  'Agent design': ['lab-01', 'lab-03'],
+  'Topics & triggers': ['lab-03', 'lab-05'],
+  'Evaluation & monitoring': ['lab-14', 'lab-15', 'lab-16'],
+  'Enterprise integration': ['lab-01', 'lab-09'],
+  'Identity strategy': ['lab-02'],
+  'Channels & deployment': ['lab-02', 'lab-19'],
+  'Responsible AI': ['lab-02', 'lab-04', 'lab-10'],
+  'Architecture patterns': ['lab-11', 'lab-12'],
+  'Multi-agent architecture': ['lab-11', 'lab-12'],
+  'MCP & A2A': ['lab-10', 'lab-12'],
+  'Azure AI Search': ['lab-08', 'lab-13'],
+  'Adaptive Cards': ['lab-06'],
+  'Grounding & knowledge': ['lab-05', 'lab-07', 'lab-08'],
+  'Flow parameters': ['lab-04', 'lab-05'],
+  'Flow integration': ['lab-04', 'lab-05'],
+  'Error handling': ['lab-06'],
+  'Evaluation': ['lab-15', 'lab-16'],
+  'ALM & deployment': ['lab-17', 'lab-18', 'lab-19'],
+  'Audience design': ['lab-01', 'lab-02']
+};
+const questions = [...dumpsbase, ...additional, ...communityQuestions, ...coursewareQuestions].map((item, index) => ({ ...item, id: index + 1, official: item.official || false, format: item.format || 'single', sourceType: item.sourceType || (item.official ? 'Microsoft Learn' : 'DumpsBase practice'), verification: item.verification || (item.official ? 'Official Microsoft Learn aligned' : 'Unofficial practice; verify against Microsoft Learn'), labIds: item.labIds || topicLabMap[item.topic] || [] }));

@@ -48,8 +48,21 @@
           </div>
         </section>
 
+        <section class="course-path" id="course-path" aria-labelledby="course-title">
+          <div class="section-heading"><div><p class="eyebrow">Course path</p><h2 id="course-title">Learn the system,<br /><em>then run it.</em></h2></div><p class="section-caption">20 practical labs, one connected<br />Contoso service-operations scenario.</p></div>
+          <div class="outcomes-strip" id="outcomes-strip"></div>
+          <div class="area-grid" id="area-grid"></div>
+          <div class="insights-heading"><p class="eyebrow">Courseware insights</p><h3>Concepts worth carrying into production.</h3></div>
+          <div class="insights-grid" id="insights-grid"></div>
+        </section>
+
+        <section class="labs-section" id="labs" aria-labelledby="labs-title">
+          <div class="toolbar"><div><p class="eyebrow">Hands-on labs</p><h2 id="labs-title">Build the path.</h2></div><select id="lab-filter" aria-label="Filter labs by day"><option value="all">All five days</option></select></div>
+          <div class="labs-grid" id="labs-grid"></div>
+        </section>
+
         <section class="question-area" id="exam" aria-labelledby="question-title">
-          <div class="toolbar"><div><p class="eyebrow">Practice bank</p><h2 id="question-title">Question <span id="question-number">1</span><small>/ <span id="question-total">54</span></small></h2><p class="exam-status" id="exam-status" hidden></p></div><div class="toolbar-controls"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter"><option value="all">All topics</option></select></div></div>
+          <div class="toolbar"><div><p class="eyebrow">Practice bank</p><h2 id="question-title">Question <span id="question-number">1</span><small>/ <span id="question-total">90</span></small></h2><p class="exam-status" id="exam-status" hidden></p></div><div class="toolbar-controls"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter"><option value="all">All topics</option></select></div></div>
           <div class="question-layout"><aside class="question-list" id="question-list" aria-label="Fragenliste"></aside><article class="question-card" id="question-card"></article></div>
         </section>
 
@@ -67,6 +80,6 @@
         <div class="modal-actions"><button class="small-button next" type="button" data-modal-close>Close</button></div>
       </section>
     </div>
-    <script src="questions.js?v=3"></script><script src="app.js?v=3"></script>
+    <script src="course.js?v=1"></script><script src="resources.js?v=1"></script><script src="courseware-insights.js?v=1"></script><script src="labs.js?v=2"></script><script src="questions.js?v=6"></script><script src="app.js?v=8"></script>
   </body>
 </html>
