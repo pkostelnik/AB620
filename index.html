@@ -55,8 +55,18 @@
 
         <section class="sources-section" id="sources" aria-labelledby="sources-title"><div><p class="eyebrow">Evidence over folklore</p><h2 id="sources-title">Start with the<br /><em>source of truth.</em></h2></div><div class="source-grid"><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-620" target="_blank" rel="noreferrer"><b>01</b><strong>Official exam study guide</strong><span>Skills measured, weights, and scope ↗</span></a><a href="https://learn.microsoft.com/en-us/training/courses/ab-620t00" target="_blank" rel="noreferrer"><b>02</b><strong>AB-620T00 course</strong><span>72-hour instructor-led curriculum ↗</span></a><a href="https://www.dumpsbase.com/freedumps/ab-620-dumps-v8-02-for-designing-and-building-integrated-ai-solutions-in-copilot-studio-exam-preparation-2026.html" target="_blank" rel="noreferrer"><b>03</b><strong>Unofficial practice set</strong><span>45 questions, used critically ↗</span></a></div></section>
       </main>
-      <footer><span>AB-620 FIELD GUIDE</span><span>Built for deliberate practice · GitHub Pages ready</span></footer>
+      <footer><span>AB-620 FIELD GUIDE</span><span>Built for deliberate practice · GitHub Pages ready</span><nav class="legal-nav" aria-label="Legal information"><button type="button" data-legal="disclaimer">Disclaimer</button><button type="button" data-legal="privacy">Privacy</button><button type="button" data-legal="imprint">Legal Notice</button></nav></footer>
     </div>
-    <script src="questions.js"></script><script src="app.js"></script>
+    <div class="legal-modal" id="legal-modal" hidden>
+      <div class="modal-backdrop" data-modal-close></div>
+      <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+        <button class="modal-close" type="button" aria-label="Close dialog" data-modal-close>×</button>
+        <p class="eyebrow">Legal notes</p>
+        <h2 id="modal-title"></h2>
+        <div class="modal-content" id="modal-content"></div>
+        <div class="modal-actions"><button class="small-button next" type="button" data-modal-close>Close</button></div>
+      </section>
+    </div>
+    <script src="questions.js?v=3"></script><script src="app.js?v=3"></script>
   </body>
 </html>

@@ -18,6 +18,32 @@ themeSelect.addEventListener('change', (event) => { localStorage.setItem('ab620-
 
 const list = $('#question-list');
 const card = $('#question-card');
+const legalModal = $('#legal-modal');
+const modalPanel = legalModal.querySelector('.modal-panel');
+const modalTitle = $('#modal-title');
+const modalContent = $('#modal-content');
+let lastFocusedElement;
+const legalContent = {
+  disclaimer: {
+    title: 'Disclaimer',
+    html: `<p><strong>Unofficial study project.</strong> This website is an independent, unofficial exam-preparation project.</p><p>It has no affiliation, partnership, authorization, sponsorship, or endorsement from Microsoft, Microsoft Corporation, DumpsBase, or The Data Community. Microsoft, Copilot Studio, and AB-620 are trademarks of their respective owners.</p><p>Some content comes from third-party sources and has been checked against Microsoft Learn to the best of our ability. <strong>No guarantee</strong> is given for accuracy, completeness, currency, availability, error-free operation, or exam success.</p><p>This content is not legal, tax, privacy, professional, or other expert advice. Use this website at your own risk. Verify information independently before relying on it for any binding or public purpose.</p>`
+  },
+  privacy: {
+    title: 'Privacy Notice',
+    html: `<p><strong>Controller:</strong> [Operator name or entity placeholder]. This project is a static GitHub Pages website.</p><p>The application stores only the following data locally in your browser:</p><ul><li>your study progress using <code>localStorage</code></li><li>your theme selection using <code>localStorage</code></li></ul><p>The application does not create accounts, transmit answers to an own server, or use its own analytics or tracking services. Local data can be deleted with “Reset progress” or through your browser settings.</p><p>Loading the external Google Fonts stylesheet may connect your browser to Google. External links may open Microsoft Learn, GitHub, and other source websites. Their own privacy notices apply to processing on those services.</p><p>This short notice is not a complete, individualized privacy policy. Review hosting, fonts, logs, and any additional services before public publication.</p>`
+  },
+  imprint: {
+    title: 'Legal Notice',
+    html: `<p class="placeholder-notice"><strong>Placeholder: Complete before public publication.</strong></p><p><strong>Provider information under Section 5 DDG</strong></p><p>[Provider name or entity]<br />[Full service address]<br />[Email address]</p><p>This legal notice is a placeholder and is not a complete provider identification. No VAT ID, commercial register details, or profession-specific information have been provided for this draft. Replace all placeholders and obtain an appropriate legal review before publication.</p>`
+  }
+};
+function openLegalModal(type) { const content = legalContent[type] || legalContent.disclaimer; lastFocusedElement = document.activeElement; modalTitle.textContent = content.title; modalContent.innerHTML = content.html; legalModal.hidden = false; document.body.classList.add('modal-open'); modalPanel.focus(); }
+function closeLegalModal() { legalModal.hidden = true; document.body.classList.remove('modal-open'); lastFocusedElement?.focus(); }
+document.querySelectorAll('[data-legal]').forEach((button) => button.addEventListener('click', () => openLegalModal(button.dataset.legal)));
+legalModal.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', closeLegalModal));
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !legalModal.hidden) closeLegalModal(); });
+// Show the disclaimer immediately on every page load so it cannot be missed.
+openLegalModal('disclaimer');
 const topics = [...new Set(questions.map((item) => item.topic))];
 topics.forEach((topic) => $('#topic-filter').insertAdjacentHTML('beforeend', `<option value="${topic}">${topic}</option>`));
 

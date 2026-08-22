@@ -172,6 +172,22 @@ a { color: inherit; }
 .source-grid strong { font: 600 1rem 'Space Grotesk'; }
 .source-grid span { grid-column: 2; color: var(--muted); font-size: .75rem; }
 footer { display: flex; justify-content: space-between; border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font: 500 .62rem 'DM Mono'; letter-spacing: .08em; }
+.legal-nav { display: inline-flex; gap: 14px; margin-left: 20px; }
+.legal-nav button { border: 0; background: transparent; color: var(--muted); padding: 0; font: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.legal-nav button:hover { color: var(--ink); }
+.modal-open { overflow: hidden; }
+.legal-modal[hidden] { display: none; }
+.legal-modal { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 20px; }
+.modal-backdrop { position: absolute; inset: 0; background: rgb(13 20 35 / 72%); }
+.modal-panel { position: relative; width: min(720px, 100%); max-height: min(760px, 90vh); overflow: auto; border: 1px solid var(--line); background: var(--white); color: var(--ink); padding: clamp(24px, 5vw, 48px); box-shadow: 0 24px 80px rgb(0 0 0 / 28%); }
+.modal-panel h2 { max-width: 600px; margin: 0 0 22px; font: 600 clamp(2rem, 4vw, 3.4rem)/1 'Space Grotesk'; letter-spacing: -.06em; }
+.modal-close { position: absolute; top: 14px; right: 16px; border: 1px solid var(--line); background: transparent; color: var(--ink); width: 38px; height: 38px; font-size: 1.5rem; line-height: 1; }
+.modal-content { color: var(--muted); font-size: .9rem; line-height: 1.7; }
+.modal-content strong { color: var(--ink); }
+.modal-content code { border: 1px solid var(--line); background: var(--paper); color: var(--ink); padding: 2px 5px; }
+.modal-content li { margin: 6px 0; }
+.placeholder-notice { border: 2px solid var(--orange); background: var(--error-bg); color: var(--error-text); padding: 14px; }
+.modal-actions { display: flex; justify-content: flex-end; margin-top: 28px; }
 
 /* Keep the full desktop composition in narrow split-screen windows. */
 @media (max-width: 560px) {
@@ -198,6 +214,7 @@ footer { display: flex; justify-content: space-between; border-top: 1px solid va
   .sources-section { grid-template-columns: 1fr; gap: 35px; padding: 70px 0; }
   footer { display: block; line-height: 2.2; }
   .source-note { font-size: .58rem; }
+  .legal-nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 0; }
 }
 @media (min-width: 561px) and (max-width: 900px) {
   .mode-grid { grid-template-columns: repeat(2, 1fr); }
