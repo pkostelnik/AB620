@@ -1,3 +1,6 @@
 .playwright-mcp/
 desktop-*.png
 theme-*.png
+node_modules/
+test-results/
+playwright-report/
