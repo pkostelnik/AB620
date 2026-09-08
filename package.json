@@ -1,0 +1,15 @@
+{
+  "name": "ab620-field-guide",
+  "private": true,
+  "scripts": {
+    "test": "playwright test --project=chromium",
+    "test:all-browsers": "playwright test",
+    "test:content": "node scripts/validate-content.mjs && playwright test tests/content.spec.js --project=chromium",
+    "docs:generate": "node scripts/generate-study-guide.mjs",
+    "docs:check": "node scripts/generate-study-guide.mjs --check",
+    "check:links": "node scripts/check-links.mjs --network"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

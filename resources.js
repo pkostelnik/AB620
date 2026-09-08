@@ -1,8 +1,12 @@
+const coursewareCommit = '941360e11dfa677914a00281a8255404e8c848e0';
+const coursewareBase = `https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/blob/${coursewareCommit}`;
 const resources = [
-  { id: 'adr', title: 'Architecture Decision Record template', type: 'template', labs: ['lab-01'], url: 'https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/tree/main/labs/resources' },
-  { id: 'card', title: 'Adaptive Card JSON fixture', type: 'fixture', labs: ['lab-06'], url: 'https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/tree/main/labs/resources' },
-  { id: 'openapi', title: 'OpenAPI ticket tool fixture', type: 'fixture', labs: ['lab-09'], url: 'https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/tree/main/labs/resources' },
-  { id: 'kql', title: 'Application Insights KQL fixture', type: 'query', labs: ['lab-14'], url: 'https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/tree/main/labs/resources' },
-  { id: 'test-set', title: 'Representative test-set design', type: 'evaluation', labs: ['lab-15', 'lab-16'], url: 'https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/tree/main/labs/resources' },
-  { id: 'release', title: 'Deployment and recovery checklist', type: 'runbook', labs: ['lab-19', 'lab-20'], url: 'https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/tree/main/labs/resources' }
-];
+  ['adr', 'Architecture Decision Record template', 'template', [1], 'architecture-decision-record.md'],
+  ['card', 'Adaptive Card JSON fixture', 'fixture', [6], 'adaptive-card.json'],
+  ['openapi', 'OpenAPI ticket tool fixture', 'fixture', [9], 'ticket-api.openapi.yaml'],
+  ['kql', 'Application Insights KQL fixture', 'query', [14], 'application-insights-queries.kql'],
+  ['test-set', 'Platform test-set import', 'evaluation', [15, 16], 'contoso-test-set.csv'],
+  ['test-design', 'Test categories and traceability', 'evaluation', [15, 16], 'contoso-test-design.csv'],
+  ['release', 'Deployment and recovery checklist', 'runbook', [19, 20], 'deployment-checklist.md'],
+  ['evidence', 'Foundry evidence fixtures', 'fixture', [13], 'foundry-evidence-fixtures.json'],
+].map(([id, title, type, numbers, file]) => ({ id, title, type, labs: numbers.map(n => `lab-${String(n).padStart(2, '0')}`), url: `${coursewareBase}/labs/resources/${file}` }));

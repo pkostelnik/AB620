@@ -9,8 +9,8 @@ const source = {
   topics: ['Topics & triggers', 'https://learn.microsoft.com/microsoft-copilot-studio/guidance/defining-chatbot-topics'],
   eval: ['Evaluation & monitoring', 'https://learn.microsoft.com/microsoft-copilot-studio/guidance/evaluation-overview']
 };
-const q = (question, options, answer, explanation, key, official = false) => ({ question, options, answer, explanation, topic: source[key][0], source: source[key][1], official });
-const community = (question, options, answer, explanation, topic, post, format = 'single', extra = {}) => ({ question, options, answer, explanation, topic, source: `https://thedatacommunity.org/?p=${post}`, sourceType: 'The Data Community practice', verification: 'Cross-checked against Microsoft Learn; unofficial practice content', format, ...extra });
+const q = (question, options, answer, explanation, key, official = false) => ({ question, options, answer, explanation, topic: source[key][0], verificationSource: source[key][1], official });
+const community = (question, options, answer, explanation, topic, post, format = 'single', extra = {}) => ({ question, options, answer, explanation, topic, originalSource: `https://thedatacommunity.org/?p=${post}`, sourceType: 'The Data Community practice', format, ...extra });
 
 const dumpsbase = [
 q('You are designing a public-facing municipality agent. Most visitors ask anonymously about park hours, but residents must authenticate before paying a utility bill. How should authentication be configured?', ['Manual authentication with an OAuth provider and an Authenticate node only in the payment topic.', 'Authenticate with Microsoft and dynamically switch identity by channel.', 'Require sign-in globally for every visitor.', 'Collect the password with an HTTP request.'], 0, 'Manual authentication can be invoked only where the protected operation needs it. Never collect credentials inside a chat message or HTTP payload.', 'auth'),
@@ -77,7 +77,7 @@ community('A flow must create an approval, update two systems, and notify a mana
 community('Which TWO practices improve an enterprise identity strategy?', ['Use least-privilege permissions.', 'Share one administrator account across agents.', 'Use delegated permissions for user-driven access where appropriate.', 'Hard-code API keys in topics.'], [0, 2], 'Least privilege limits the blast radius, and delegated access can preserve the signed-in user context for user-driven operations.', 'Identity strategy', 9597, 'multiple'),
 community('Which deployment design best supports safe production releases?', ['Develop directly in production.', 'Use separate development, test, and production environments with ALM.', 'Let every user edit the production agent.', 'Publish every draft immediately.'], 1, 'Separate environments and an ALM process allow testing and approval before production deployment.', 'Channels & deployment', 9602),
 community('Which TWO controls are part of a responsible AI strategy for a high-impact approval agent?', ['Human review for high-impact decisions.', 'Unrestricted autonomous execution.', 'Grounding in trusted data.', 'Disabling audit logs.'], [0, 2], 'Human oversight and trusted grounding reduce risk in sensitive scenarios. Responsible AI is a lifecycle concern, not a single switch.', 'Responsible AI', 9607, 'multiple'),
-community('Match each component to its primary purpose.', ['1. Connector Tool', '2. REST API Tool', '3. MCP', '4. A2A'], 0, 'The concepts map to prebuilt integration, custom HTTP integration, external tool interoperability, and agent-to-agent communication.', 'Architecture patterns', 9592, 'matching', { matches: { '1': 'A', '2': 'B', '3': 'C', '4': 'D' }, matchLabels: ['A. Prebuilt application integration', 'B. Custom HTTP integration', 'C. External tool interoperability', 'D. Agent-to-agent collaboration'] }),
+community('Match each component to its primary purpose.', ['1. Connector Tool', '2. REST API Tool', '3. MCP', '4. A2A'], 0, 'The concepts map to prebuilt integration, custom HTTP integration, external tool interoperability, and agent-to-agent communication.', 'Architecture patterns', 9592, 'matching', { matches: { '0': 'A', '1': 'B', '2': 'C', '3': 'D' }, matchLabels: ['A. Prebuilt application integration', 'B. Custom HTTP integration', 'C. External tool interoperability', 'D. Agent-to-agent collaboration'] }),
 community('What should a production agent flow do when a connector returns a temporary timeout?', ['Expose the raw HTTP error.', 'Retry when appropriate, log the failure, and return a user-friendly fallback.', 'Ignore the failure.', 'Delete the connector.'], 1, 'The flow should distinguish transient failures from permanent failures and provide a controlled user-facing response.', 'Error handling', 9653),
 community('Which TWO values are typical flow outputs returned to the agent?', ['A ticket number.', 'A hidden API password.', 'An order status.', 'A deployment secret.'], [0, 2], 'Outputs should contain useful business results. Secrets should not be returned to the conversation.', 'Flow parameters', 9648, 'multiple'),
 community('A flow is attached to a topic and must return a result immediately. Which configuration is required?', ['Asynchronous response enabled.', 'A synchronous response action such as Respond to the agent.', 'No output parameters.', 'A second unrelated trigger.'], 1, 'Microsoft documents that agent-called flows must return values synchronously for the agent to consume them reliably.', 'Flow integration', 9658),
@@ -111,25 +111,70 @@ community('An evaluation shows a regression after a prompt change. What should h
 community('Which deployment artifact should carry environment-specific endpoints without changing the agent canvas?', ['A hard-coded URL.', 'An Environment Variable.', 'A conversation transcript.', 'A trigger phrase.'], 1, 'Environment Variables separate configuration from solution logic and support movement between environments.', 'Release gates', 9863, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; confirmed against Microsoft Learn ALM guidance', labIds: ['lab-17', 'lab-18', 'lab-19'] }),
 community('A production release has a failing smoke check and a downstream API has already received a write. What is the safest next step?', ['Continue the release and hide the failure.', 'Hold or contain the release, record the incident, and follow the recovery runbook.', 'Delete all telemetry.', 'Retry indefinitely.'], 1, 'A release gate should stop promotion when evidence fails. External side effects may require compensation rather than a simple package rollback.', 'Release recovery', 9845, 'single', { sourceType: 'Courseware-derived', verification: 'Courseware-derived; operational guidance requires scenario-specific validation', labIds: ['lab-19', 'lab-20'] })
 ];
-const coursewareLabSources = {
-  'lab-04': 'lab-04-build-a-request-intake-flow-with-human-review.md',
-  'lab-05': 'lab-05-create-a-guided-topic-with-variables-and-grounded-answers.md',
-  'lab-06': 'lab-06-add-an-adaptive-card-and-safe-http-response.md',
-  'lab-07': 'lab-07-ground-the-agent-in-enterprise-knowledge.md',
-  'lab-08': 'lab-08-configure-azure-ai-search-and-validate-retrieval.md',
-  'lab-10': 'lab-10-connect-mcp-tools-and-guard-computer-use.md',
-  'lab-11': 'lab-11-connect-copilot-studio-foundry-and-fabric-specialists.md',
-  'lab-12': 'lab-12-delegate-a-task-over-a2a.md',
-  'lab-13': 'lab-13-use-azure-search-evidence-in-a-foundry-prompt.md',
-  'lab-14': 'lab-14-instrument-the-agent-with-application-insights.md',
-  'lab-15': 'lab-15-build-a-representative-agent-test-set.md',
-  'lab-16': 'lab-16-run-evaluation-and-triage-agent-defects.md',
-  'lab-17': 'lab-17-create-the-agent-solution-and-dependency-inventory.md',
-  'lab-18': 'lab-18-configure-environment-variables-and-connection-references.md',
-  'lab-19': 'lab-19-deploy-through-a-power-platform-pipeline.md',
-  'lab-20': 'lab-20-rehearse-release-monitoring-and-recovery.md'
+// Origin is an editorial attribution, not the first related exercise. See SOURCE-EVIDENCE.md.
+const coursewareOrigins = [4, 4, 8, 13, 14, 12, 10, 10, 15, 16, 18, 20];
+const learnEvidence = {
+  integrations: 'https://learn.microsoft.com/microsoft-copilot-studio/guidance/integrations',
+  security: 'https://learn.microsoft.com/microsoft-copilot-studio/guidance/sec-gov-phase3',
+  responsible: 'https://learn.microsoft.com/microsoft-copilot-studio/system-service-card-copilot-studio',
+  a2a: 'https://learn.microsoft.com/microsoft-copilot-studio/add-agent-agent-to-agent',
+  errors: 'https://learn.microsoft.com/power-automate/guidance/coding-guidelines/error-handling',
+  flow: 'https://learn.microsoft.com/microsoft-copilot-studio/flow-modify-use-with-agent',
+  card: 'https://learn.microsoft.com/microsoft-copilot-studio/authoring-ask-with-adaptive-card',
+  freshness: 'https://learn.microsoft.com/azure/search/retrieval-augmented-generation-overview',
+  rag: 'https://learn.microsoft.com/microsoft-copilot-studio/guidance/retrieval-augmented-generation',
+  agents: 'https://learn.microsoft.com/microsoft-copilot-studio/authoring-add-other-agents',
+  mcp: 'https://learn.microsoft.com/microsoft-copilot-studio/mcp-add-existing-server-to-agent',
+  evaluation: 'https://learn.microsoft.com/microsoft-365/copilot/employee-self-service/evaluations-run-tests',
+  metrics: 'https://learn.microsoft.com/microsoft-copilot-studio/guidance/agent-business-value-metrics-reference',
+  environment: 'https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables',
+  connections: 'https://learn.microsoft.com/power-platform/alm/conn-ref-env-variables-build-tools',
+  auth: 'https://learn.microsoft.com/microsoft-copilot-studio/configuration-end-user-authentication',
+  telemetry: 'https://learn.microsoft.com/azure/azure-monitor/app/data-model-complete',
+  computer: 'https://learn.microsoft.com/microsoft-copilot-studio/faqs-computer-use',
+  recovery: 'https://learn.microsoft.com/azure/architecture/patterns/compensating-transaction',
+  guide: 'https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-620',
 };
-coursewareQuestions.forEach((question) => { const labId = question.labIds[0]; question.coursewareSource = `https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate/blob/main/labs/${coursewareLabSources[labId]}`; });
+// Review scope includes the answer AND its explanation, not just URL reachability.
+const questionEvidence = {
+  54: ['guide', 'confirmed', 'The About the exam note explicitly allows commonly used preview features.'],
+  55: ['integrations', 'confirmed', 'Prebuilt connectors require configuration rather than development; custom connectors cover missing integrations.'],
+  56: ['integrations', 'confirmed', 'Agent flows deterministically chain actions and support human-in-the-loop work.'],
+  57: ['security', 'partial', 'Supports restricted access and end-user delegation. Least privilege is consistent guidance, not a universal delegated-auth requirement.'],
+  58: ['security', 'confirmed', 'Recommends reviewed, gated promotion from development through test to production.'],
+  59: ['responsible', 'confirmed', 'Safety guidance explicitly combines trusted grounding and human oversight for high-impact actions.'],
+  60: ['a2a', 'partial', 'Distinguishes A2A agent communication, MCP tools/resources and HTTP APIs. The four-way matching labels are instructional shorthand.'],
+  61: ['errors', 'partial', 'Documents retry policies, Run after, logging and notifications. The user-facing fallback is a scenario-specific design choice.'],
+  62: ['integrations', 'confirmed', 'Flows pass inputs and return outputs while hiding keys and secrets in flow actions. Ticket and status outputs are examples.'],
+  63: ['flow', 'confirmed', 'Respond to the agent must return synchronously with asynchronous response disabled; later work may continue after the response.'],
+  64: ['card', 'confirmed', 'Interactive cards collect inputs into variables; consecutive cards need distinct submit data and handling.'],
+  65: ['card', 'confirmed', 'Documents host-specific schema versions and unsupported actions; not every host supports the same features.'],
+  66: ['freshness', 'partial', 'Incremental indexing keeps content fresh. The exact refresh mechanism and diagnosis depend on the configured knowledge source.'],
+  67: ['rag', 'confirmed', 'Lists Azure AI Search as vector-based semantic retrieval. The standard Copilot Studio connection does not provide delegated security trimming.'],
+  68: ['agents', 'partial', 'Explicitly supports separate teams, deployment and ALM. Domain/permission boundaries remain a solution-design judgment.'],
+  69: ['agents', 'confirmed', 'Explicitly warns about additional orchestration latency and a larger testing, management and governance surface.'],
+  70: ['a2a', 'confirmed', 'Defines A2A as agent communication and distinguishes MCP servers for tools and resources.'],
+  71: ['mcp', 'confirmed', 'Supported transports states Streamable transport and no SSE support after August 2025.'],
+  72: ['a2a', 'confirmed', 'Requires review of data sharing, permissions, reliability, observability, traceability and human oversight.'],
+  73: ['evaluation', 'partial', 'Confirms repeatable test sets and expected responses. Groundedness and intent recognition depend on evaluation method, not universal native metric names.'],
+  74: ['metrics', 'partial', 'Defines groundedness and topic match as different signals. The proposed combination is a diagnostic inference, not proof of a root cause.'],
+  75: ['environment', 'confirmed', 'Separates configuration parameters from consumers so environment values change without rewriting solution logic.'],
+  76: ['connections', 'confirmed', 'Connection references bind solution components to target-environment connections during deployment.'],
+  77: ['auth', 'confirmed', 'Authenticate with Microsoft uses Teams identity and Entra ID; organizational access can be controlled through sharing.'],
+  78: ['integrations', 'confirmed', 'Distinguishes read operations from create/update actions. Retrieving order status is a read-only example.'],
+  79: ['flow', 'confirmed', 'The synchronous response requirement is explicit. Long-running work may continue after returning the response.'],
+  80: ['integrations', 'partial', 'Supports input/output contracts and explicit error handling; the exact typed schema and error-state vocabulary are course design.'],
+  81: ['freshness', 'partial', 'Incremental indexing supports freshness. Lab 8 step 4 supplies the course-specific freshness objective and owner.'],
+  82: ['rag', 'partial', 'Supports grounded evidence and custom instructions, but does not define a conflict status. That exact token comes from Lab 13 step 7.'],
+  83: ['telemetry', 'partial', 'Shared operation identifiers correlate distributed telemetry. Lab 14 custom correlationId/conversationId joins must be validated in the target environment.'],
+  84: ['a2a', 'partial', 'Explicitly requires data, permission and reliability review. Timeout handling is detailed in Lab 12, not prescribed as a specific setting here.'],
+  85: ['mcp', 'confirmed', 'Documents authentication, server configuration and connector data policies governing access to MCP tools.'],
+  86: ['computer', 'partial', 'Supports isolation, least privilege and validation. Human supervision is probabilistic, not guaranteed enforcement of stop or confirmation rules.'],
+  87: ['evaluation', 'partial', 'Supports refusal and responsible-AI test cases. The boundary category name is the course taxonomy in Lab 15, not an official metric.'],
+  88: ['evaluation', 'confirmed', 'Recommends stable regression sets after changes and comparison of results across versions.'],
+  89: ['environment', 'confirmed', 'Environment variables separate parameters from consuming components and travel with solutions.'],
+  90: ['recovery', 'partial', 'Supports domain-specific compensation and manual intervention after side effects. Lab 20 supplies the release containment/runbook procedure.'],
+};
 const topicLabMap = {
   'Authentication & SSO': ['lab-02'],
   'Agent flows': ['lab-04'],
@@ -157,4 +202,19 @@ const topicLabMap = {
   'ALM & deployment': ['lab-17', 'lab-18', 'lab-19'],
   'Audience design': ['lab-01', 'lab-02']
 };
-const questions = [...dumpsbase, ...additional, ...communityQuestions, ...coursewareQuestions].map((item, index) => ({ ...item, id: index + 1, official: item.official || false, format: item.format || 'single', sourceType: item.sourceType || (item.official ? 'Microsoft Learn' : 'DumpsBase practice'), verification: item.verification || (item.official ? 'Official Microsoft Learn aligned' : 'Unofficial practice; verify against Microsoft Learn'), labIds: item.labIds || topicLabMap[item.topic] || [] }));
+const questions = [...dumpsbase, ...additional, ...communityQuestions, ...coursewareQuestions].map((item, index) => {
+  const id = index + 1;
+  const evidence = questionEvidence[id];
+  const { verification: previousVerification, ...content } = item;
+  return {
+    ...content, id, official: item.official || false, format: item.format || 'single',
+    sourceType: item.sourceType || (item.official ? 'Microsoft Learn' : 'DumpsBase practice'),
+    originalSource: id >= 79 ? labs[coursewareOrigins[id - 79] - 1].sourceUrl : item.originalSource || (item.official ? (id === 54 ? learnEvidence.guide : item.verificationSource) : 'https://www.dumpsbase.com/freedumps/ab-620-dumps-v8-02-for-designing-and-building-integrated-ai-solutions-in-copilot-studio-exam-preparation-2026.html'),
+    verificationSource: evidence ? learnEvidence[evidence[0]] : item.verificationSource,
+    verificationStatus: evidence?.[1] || 'unreviewed',
+    verification: evidence ? (evidence[1] === 'confirmed' ? 'Supported by the reviewed documentation' : 'Partially supported; see scope note') : 'Not individually reviewed in this source audit',
+    verificationNote: evidence?.[2] || 'Existing topic-level reference retained; this audit did not individually verify this answer and explanation.',
+    verifiedOn: evidence ? '2026-09-06' : null,
+    labIds: item.labIds || topicLabMap[item.topic] || [],
+  };
+});
