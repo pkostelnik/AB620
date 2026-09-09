@@ -10,6 +10,14 @@ The site now includes 90 practice questions, six learning outcomes, three exam a
 
 The interface supports English and German. English is the default language, and the selected language is stored locally in the browser. The site also supports Auto, Light, Dark, and High contrast themes.
 
+## Visual design
+
+The learning-platform redesign uses a compact course introduction, an AB-620 summary card and three study modes, followed immediately by the question workspace. Course areas and insights, hands-on labs, and sources follow below. Navigation remains available on mobile; lab and source links are hidden during active exams.
+
+The independent blue identity pairs navy text, pale blue surfaces and white rounded cards with Space Grotesk headings and DM Sans body text. Dark mode uses subtle blue-gray surfaces; high contrast retains black, white, yellow and cyan without shadows. The existing Microsoft badge and font providers are unchanged. See [DESIGN.md](DESIGN.md) for the approved direction and responsive contracts.
+
+The summary reads question, lab and area counts from the runtime arrays. Its native horizontal progress bar reports **study completion**, meaning questions with saved study answers, not accuracy or mastery. Exam answers never affect this indicator. A partially answered multi-select or matching question retains the existing answered-question counting behavior.
+
 Courseware-derived content is attributed to the [Tertiary Courses C1760 repository](https://github.com/tertiarycourses/C1760-AB-620-Microsoft-Certified-AI-Agent-Builder-Associate). The local lab briefs are paraphrased summaries, not copied courseware.
 
 ## Source model
@@ -76,7 +84,7 @@ Open `http://localhost:8000` in a browser. No build step or backend is required.
 
 ## Publish with GitHub Pages
 
-All local runtime scripts and `styles.css` use the same release query version in `index.html` (`2026-09-06-qa-final`). Bump every local runtime URL together for future releases, including `locale-data.js`, so fresh HTML cannot reuse an older release's URL-keyed data or styles. The cache regression serves assets from pre-fix `HEAD` (`4ca70d3cacfbb7b77796e0a10492ea1bc4904a80`) only for their original URLs and requires zero hits from this release. Keep that commit available when running tests in a shallow checkout. This does not force an already cached HTML document to refresh.
+All local runtime scripts and `styles.css` use the same release query version in `index.html` (`2026-09-08-learning-platform`). Bump every local runtime URL together for future releases, including `locale-data.js`, so fresh HTML cannot reuse an older release's URL-keyed data or styles. The cache regression serves assets from pre-fix `HEAD` (`4ca70d3cacfbb7b77796e0a10492ea1bc4904a80`) only for their original URLs and requires zero hits from this release. Keep that commit available when running tests in a shallow checkout. This does not force an already cached HTML document to refresh.
 
 1. Push the repository to GitHub.
 2. Open **Settings → Pages**.

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Interactive study platform for Microsoft AB-620 Copilot Studio." />
     <title>AB-620 Field Guide</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2318201e'/%3E%3Ctext x='8' y='43' fill='%23d9f45b' font-family='Arial' font-size='25' font-weight='700'%3EAB%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=2026-09-06-qa-final" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230969da'/%3E%3Ctext x='8' y='43' fill='%23ffffff' font-family='Arial' font-size='25' font-weight='700'%3EAB%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css?v=2026-09-08-learning-platform" />
   </head>
   <body>
     <div class="app-shell">
@@ -15,7 +15,7 @@
           <img class="brand-badge" src="https://learn.microsoft.com/en-us/media/learn/certification/badges/microsoft-certified-associate-badge.svg" alt="Microsoft Certified Associate badge" data-ui-alt="badgeAlt" /><span>AB-620</span><small data-ui="fieldGuide">FIELD GUIDE</small>
         </a>
         <nav class="top-nav" aria-label="Main navigation" data-ui-aria="mainNav">
-          <a href="#learn" data-ui="learn">Learn</a><a href="#exam" data-ui="exam">Exam mode</a><a href="#sources" data-ui="sources">Sources</a>
+          <a href="#learn" data-ui="learn">Learn</a><a href="#exam" data-ui="exam">Exam mode</a><a href="#labs" data-ui="labs">Hands-on labs</a><a href="#sources" data-ui="sources">Sources</a>
         </nav>
         <div class="header-actions">
           <label class="theme-switcher"><span data-ui="theme">Theme</span><select id="theme-select" aria-label="Choose color theme" data-ui-aria="chooseTheme"><option value="auto" data-ui="auto">Auto</option><option value="light" data-ui="light">Light</option><option value="dark" data-ui="dark">Dark</option><option value="contrast" data-ui="contrast">High contrast</option></select></label>
@@ -29,25 +29,35 @@
         <section class="hero" aria-labelledby="hero-title">
           <div class="hero-copy">
             <p class="eyebrow">Microsoft Certified: AI Agent Builder Associate</p>
-            <h1 id="hero-title"><span data-ui="heroTitle">Design agents that</span><br /><em data-ui="heroEmphasis">actually ship.</em></h1>
+            <h1 id="hero-title" data-ui="heroTitle">Prepare for AB-620</h1>
             <p class="hero-intro" data-ui="heroIntro">A focused, source-led practice environment for AB-620. Learn the decision behind the answer, not just the letter.</p>
             <div class="hero-actions"><a class="primary-button" href="#learn" data-ui="start">Start learning <span>↗</span></a><span class="source-note" data-ui="updated">Updated for the 2026 study guide</span></div>
           </div>
-          <div class="hero-stat" aria-label="Study progress" data-ui-aria="learningProgress">
-            <div class="ring" id="progress-ring" role="progressbar" aria-label="Question progress" data-ui-aria="questionProgress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-              <strong id="progress-percent">0%</strong><span data-ui="mastery">mastery</span>
-            </div>
-            <p><b id="completed-count">0</b> <span data-ui="of">of</span> <b id="total-count">90</b> <span data-ui="reviewed">questions reviewed</span></p>
+          <div class="hero-stat" role="group" aria-label="Course overview" data-ui-aria="courseOverview">
+            <div class="summary-heading"><span class="course-code">AB-620</span><span data-ui="courseOverview">Course overview</span></div>
+            <dl class="summary-counts">
+              <div><dt data-ui="summaryQuestions">Practice questions</dt><dd id="summary-question-count">0</dd></div>
+              <div><dt data-ui="labs">Hands-on labs</dt><dd id="summary-lab-count">0</dd></div>
+              <div><dt data-ui="summaryAreas">Exam areas</dt><dd id="summary-area-count">0</dd></div>
+            </dl>
+            <div class="progress-heading"><span data-ui="studyCompletion">Study completion</span><strong id="progress-percent">0%</strong></div>
+            <progress id="progress-ring" max="100" value="0" aria-label="Study completion" data-ui-aria="studyCompletion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">0%</progress>
+            <p><b id="completed-count">0</b> <span data-ui="of">of</span> <b id="total-count">0</b> <span data-ui="reviewed">questions answered</span></p>
           </div>
         </section>
 
         <section class="dashboard" id="learn" aria-labelledby="learn-title">
           <div class="section-heading"><div><p class="eyebrow" data-ui="studyDesk">Your study desk</p><h2 id="learn-title" data-ui="choose">Choose your angle.</h2></div><p class="section-caption"><span data-ui="confidence">Build confidence in layers.</span><br /><span data-ui="carry">Start with the concepts that carry the most weight.</span></p></div>
           <div class="mode-grid">
-            <button class="mode-card featured" data-mode="learn" type="button"><span class="mode-index">01 / 03</span><span class="mode-icon">↗</span><h3 data-ui="learnTopic">Learn by topic</h3><p data-ui="learnTopicDesc">Short explanations, source links, and all the reasoning behind each answer.</p><span class="mode-link" data-ui="openTopic">Open topic view</span></button>
-            <button class="mode-card" data-mode="exam" type="button"><span class="mode-index">02 / 03</span><span class="mode-icon">⌁</span><h3 data-ui="examSim">Exam simulation</h3><p data-ui="examDesc">Timed, clean, and intentionally uncomfortable. See your score at the end.</p><span class="mode-link" data-ui="startRun">Start 20-question run</span></button>
-            <button class="mode-card" data-mode="review" type="button"><span class="mode-index">03 / 03</span><span class="mode-icon">◎</span><h3 data-ui="review">Review weak spots</h3><p data-ui="reviewDesc">Return to the questions you missed or have not answered yet.</p><span class="mode-link" data-ui="reviewNow">Review now</span></button>
+             <button class="mode-card featured" data-mode="learn" type="button"><h3 data-ui="learnTopic">Learn by topic</h3><p data-ui="learnTopicDesc">Short explanations, source links, and all the reasoning behind each answer.</p><span class="mode-link" data-ui="openTopic">Open topic view</span></button>
+             <button class="mode-card" data-mode="exam" type="button"><h3 data-ui="examSim">Exam simulation</h3><p data-ui="examDesc">Practice with a time limit and no hints. See your score at the end.</p><span class="mode-link" data-ui="startRun">Start 20-question run</span></button>
+             <button class="mode-card" data-mode="review" type="button"><h3 data-ui="review">Review weak spots</h3><p data-ui="reviewDesc">Return to the questions you missed or have not answered yet.</p><span class="mode-link" data-ui="reviewNow">Review now</span></button>
           </div>
+        </section>
+
+        <section class="question-area" id="exam" aria-labelledby="question-title">
+          <div class="toolbar"><div><p class="eyebrow" data-ui="practiceBank">Practice bank</p><h2 id="question-title" tabindex="-1"><span data-ui="question">Question</span> <span id="question-number">1</span><small>/ <span id="question-total">90</span></small></h2><p class="exam-status" id="exam-status" role="status" hidden></p></div><div class="toolbar-controls"><label class="search"><span aria-hidden="true">⌕</span><span class="sr-only" data-ui="searchLabel">Search concepts</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter" data-ui-aria="topicFilter"><option value="all" data-ui="allTopics">All topics</option></select></div></div>
+          <div class="question-layout"><aside class="question-list" id="question-list" aria-label="Question list" data-ui-aria="questionList"></aside><article class="question-card" id="question-card"></article></div>
         </section>
 
         <section class="course-path" id="course-path" aria-labelledby="course-title">
@@ -63,12 +73,7 @@
           <div class="labs-grid" id="labs-grid"></div>
         </section>
 
-        <section class="question-area" id="exam" aria-labelledby="question-title">
-          <div class="toolbar"><div><p class="eyebrow" data-ui="practiceBank">Practice bank</p><h2 id="question-title" tabindex="-1"><span data-ui="question">Question</span> <span id="question-number">1</span><small>/ <span id="question-total">90</span></small></h2><p class="exam-status" id="exam-status" role="status" hidden></p></div><div class="toolbar-controls"><label class="search"><span aria-hidden="true">⌕</span><span class="sr-only" data-ui="searchLabel">Search concepts</span><input id="search" type="search" placeholder="Search concepts..." /></label><select id="topic-filter" aria-label="Topic filter" data-ui-aria="topicFilter"><option value="all" data-ui="allTopics">All topics</option></select></div></div>
-          <div class="question-layout"><aside class="question-list" id="question-list" aria-label="Question list" data-ui-aria="questionList"></aside><article class="question-card" id="question-card"></article></div>
-        </section>
-
-        <section class="sources-section" id="sources" aria-labelledby="sources-title"><div><p class="eyebrow" data-ui="evidence">Evidence over folklore</p><h2 id="sources-title"><span data-ui="sourceTitle">Start with the</span><br /><em data-ui="sourceEmphasis">source of truth.</em></h2></div><div class="source-grid"><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-620" target="_blank" rel="noreferrer"><b>01</b><strong data-ui="studyGuide">Official exam study guide</strong><span data-ui="studyGuideDesc">Skills measured, weights, and scope ↗</span></a><a href="https://learn.microsoft.com/en-us/training/courses/ab-620t00" target="_blank" rel="noreferrer"><b>02</b><strong data-ui="courseLink">AB-620T00 course</strong><span data-ui="courseLinkDesc">72-hour instructor-led curriculum ↗</span></a><a href="https://www.dumpsbase.com/freedumps/ab-620-dumps-v8-02-for-designing-and-building-integrated-ai-solutions-in-copilot-studio-exam-preparation-2026.html" target="_blank" rel="noreferrer"><b>03</b><strong data-ui="practiceSet">Unofficial practice set</strong><span data-ui="practiceSetDesc">45 questions, used critically ↗</span></a></div></section>
+        <section class="sources-section" id="sources" aria-labelledby="sources-title"><div><p class="eyebrow" data-ui="evidence">Evidence over folklore</p><h2 id="sources-title" data-ui="sourcesHeading">Learn from the sources.</h2></div><div class="source-grid"><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-620" target="_blank" rel="noreferrer"><strong data-ui="studyGuide">Official exam study guide</strong><span data-ui="studyGuideDesc">Skills measured, weights, and scope ↗</span></a><a href="https://learn.microsoft.com/en-us/training/courses/ab-620t00" target="_blank" rel="noreferrer"><strong data-ui="courseLink">AB-620T00 course</strong><span data-ui="courseLinkDesc">72-hour instructor-led curriculum ↗</span></a><a href="https://www.dumpsbase.com/freedumps/ab-620-dumps-v8-02-for-designing-and-building-integrated-ai-solutions-in-copilot-studio-exam-preparation-2026.html" target="_blank" rel="noreferrer"><strong data-ui="practiceSet">Unofficial practice set</strong><span data-ui="practiceSetDesc">45 questions, used critically ↗</span></a></div></section>
       </main>
       <footer><span>AB-620 <span data-ui="fieldGuide">FIELD GUIDE</span></span><span data-ui="footer">Built for deliberate practice · GitHub Pages ready</span><nav class="legal-nav" lang="en" aria-label="Legal information"><button type="button" data-legal="disclaimer">Disclaimer</button><button type="button" data-legal="privacy">Privacy</button><button type="button" data-legal="imprint">Legal Notice</button></nav></footer>
     </div>
@@ -82,6 +87,6 @@
         <div class="modal-actions"><button class="small-button next" type="button" data-modal-close>Close</button></div>
       </section>
     </div>
-    <script src="course.js?v=2026-09-06-qa-final"></script><script src="resources.js?v=2026-09-06-qa-final"></script><script src="courseware-insights.js?v=2026-09-06-qa-final"></script><script src="labs.js?v=2026-09-06-qa-final"></script><script src="questions.js?v=2026-09-06-qa-final"></script><script src="locale-data.js?v=2026-09-06-qa-final"></script><script src="i18n.js?v=2026-09-06-qa-final"></script><script src="app.js?v=2026-09-06-qa-final"></script>
+    <script src="course.js?v=2026-09-08-learning-platform"></script><script src="resources.js?v=2026-09-08-learning-platform"></script><script src="courseware-insights.js?v=2026-09-08-learning-platform"></script><script src="labs.js?v=2026-09-08-learning-platform"></script><script src="questions.js?v=2026-09-08-learning-platform"></script><script src="locale-data.js?v=2026-09-08-learning-platform"></script><script src="i18n.js?v=2026-09-08-learning-platform"></script><script src="app.js?v=2026-09-08-learning-platform"></script>
   </body>
 </html>

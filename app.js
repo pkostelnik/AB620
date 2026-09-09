@@ -217,9 +217,13 @@ function updateProgress() {
   const percent = Math.round((completed / questions.length) * 100);
   $('#completed-count').textContent = completed;
   $('#total-count').textContent = questions.length;
+  $('#summary-question-count').textContent = questions.length;
+  $('#summary-lab-count').textContent = labs.length;
+  $('#summary-area-count').textContent = courseAreas.length;
   $('#question-total').textContent = filtered().length;
   $('#progress-percent').textContent = `${percent}%`;
-  $('#progress-ring').style.setProperty('--progress', percent);
+  $('#progress-ring').value = percent;
+  $('#progress-ring').textContent = `${percent}%`;
   $('#progress-ring').setAttribute('aria-valuenow', percent);
 }
 function renderTopicLinks(item) { const targets = labs.filter(lab => item.labIds.includes(lab.id)); return targets.length ? `<div class="related-lab"><strong>${ui('related')}</strong>${targets.map(target => `<button class="text-button lab-inline-open" data-lab="${target.id}" type="button">${localizedLab(target).title} ↗</button>`).join('')}</div>` : ''; }
@@ -249,6 +253,12 @@ function renderCard() {
   const active = state.mode === 'exam' && state.examState === 'active';
   const locked = state.mode === 'exam' && state.examState === 'completed';
   const showFeedback = !active && (locked || answered !== undefined);
+  // Settle the blurred layout before detaching; WebKit otherwise jumps to the top on the next blur.
+  // render() captures the focus target and restores it after this replacement.
+  if (card.contains(document.activeElement)) {
+    document.activeElement.blur();
+    card.getBoundingClientRect();
+  }
   const matching = item.format === 'matching' ? `<div class="matching-list">${item.options.map((option, index) => `<label>${option}<select data-match="${index}" ${locked ? 'disabled' : ''}><option value="">${ui('chooseMatch')}</option>${item.matchLabels.map((label) => `<option value="${label[0]}" ${answered?.[index] === label[0] ? 'selected' : ''}>${label}</option>`).join('')}</select></label>`).join('')}</div>` : '';
   card.innerHTML = `<div class="question-meta"><span>${item.topic}</span>${!active ? `<span>${item.sourceType}</span>` : ''}</div><h3 id="question-prompt" tabindex="-1">${item.question}</h3><div role="group" aria-labelledby="question-prompt">${matching || `<div class="options">${optionMarkup(item, answered, showFeedback, locked)}</div>`}</div>${!active ? `<div class="source-row"><strong>${ui('source')}:</strong> ${item.sourceType} · <a class="source-link" href="${item.originalSource}" target="_blank" rel="noreferrer">${ui('originalSource')} ↗</a></div>` : ''}${showFeedback ? `<div class="explanation"><strong>${isCorrect(item, answered) ? ui('correct') : `${ui('correctAnswer')}: ${answerText(item)}`}</strong>${item.explanation}<br /><br /><a class="source-link" href="${item.verificationSource}" target="_blank" rel="noreferrer">${ui('verificationSource')} ↗</a><br /><small>${item.verification}${item.verifiedOn ? ` · ${ui('reviewedOn')}: ${item.verifiedOn}` : ''}<br />${item.verificationNote}</small></div>` : ''}${!active ? renderTopicLinks(item) : ''}<div class="question-footer"><button class="small-button" id="previous" type="button" ${state.index === 0 ? 'disabled' : ''}>← ${ui('previous')}</button><button class="small-button next" id="next" type="button" ${locked && state.index === items.length - 1 ? 'disabled' : ''}>${state.index === items.length - 1 ? ui(state.mode === 'learn' ? 'backToFirst' : 'finish') : `${ui('next')} →`}</button></div>`;
   card.querySelectorAll('[data-option], [data-match]').forEach((control) => control.addEventListener('change', () => {
